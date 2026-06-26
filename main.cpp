@@ -10,7 +10,7 @@ int main()
         1,
         "Finish C++ project",
         "Build the first version of Task Management API",
-        "pending"
+        "in progress"
     );
 
     std::cout << "User: " << user.getUsername() << std::endl;
