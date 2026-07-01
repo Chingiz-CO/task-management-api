@@ -1,24 +1,97 @@
 #include <iostream>
-#include "User.h"
+#include <string>
 #include "Task.h"
+#include "TaskManager.h"
 
 int main()
 {
-    User user("Chingiz", "20chingiz01@gmail.com", "password123");
+    TaskManager taskManager;
+    taskManager.loadFromFile("tasks.txt");
+    int nextId = 1;
+    int choice = 0;
 
-    Task task(
-        1,
-        "Finish C++ project",
-        "Build the first version of Task Management API",
-        "in progress"
-    );
+    while (choice != 6)
+    {
+        std::cout << "\n===== Task Management API =====\n";
+        std::cout << "1. Add task\n";
+        std::cout << "2. Show tasks\n";
+        std::cout << "3. Remove task\n";
+        std::cout << "4. Update task status\n";
+        std::cout << "5. Search task by title\n";
+        std::cout << "6. Exit\n";
+        std::cout << "Choose option: ";
+        std::cin >> choice;
 
-    std::cout << "User: " << user.getUsername() << std::endl;
-    std::cout << "Email: " << user.getEmail() << std::endl;
+        if (choice == 1)
+        {
+            std::string title;
+            std::string description;
 
-    std::cout << "Task #" << task.getId() << std::endl;
-    std::cout << "Title: " << task.getTitle() << std::endl;
-    std::cout << "Status: " << task.getStatus() << std::endl;
+            std::cin.ignore();
 
+            std::cout << "Enter task title: ";
+            std::getline(std::cin, title);
+
+            std::cout << "Enter task description: ";
+            std::getline(std::cin, description);
+
+            taskManager.createTask(title, description, "pending");
+
+            std::cout << "Task added successfully.\n";
+        }
+        else if (choice == 2)
+        {
+            taskManager.printTasks();
+        }
+        else if (choice == 3)
+        {
+            int id;
+            std::cout << "Enter task ID to remove: ";
+            std::cin >> id;
+
+            if (taskManager.removeTask(id))
+                std::cout << "Task removed successfully.\n";
+            else
+                std::cout << "Task not found.\n";
+        }
+        else if (choice == 4)
+        {
+            int id;
+            std::string status;
+
+            std::cout << "Enter task ID to update: ";
+            std::cin >> id;
+
+            std::cin.ignore();
+
+            std::cout << "Enter new status: ";
+            std::getline(std::cin, status);
+
+            if (taskManager.updateTaskStatus(id, status))
+                std::cout << "Task updated successfully.\n";
+            else
+                std::cout << "Task not found.\n";
+        }
+        else if (choice == 5)
+        {
+            std::string keyword;
+
+            std::cin.ignore();
+
+            std::cout << "Enter title keyword: ";
+            std::getline(std::cin, keyword);
+
+            taskManager.searchTasksByTitle(keyword);
+        }
+        else if (choice == 6)
+        {
+            std::cout << "Exiting application.\n";
+        }
+        else
+        {
+            std::cout << "Invalid option.\n";
+        }
+    }
+    taskManager.saveToFile("tasks.txt");
     return 0;
 }
