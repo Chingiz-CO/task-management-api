@@ -7,8 +7,7 @@ class Task
 public:
     Task();
 
-    Task(
-        int id,
+    Task(int id,
         const std::string& title,
         const std::string& description,
         const std::string& status,
@@ -19,7 +18,6 @@ public:
     const std::string& getDescription() const;
     const std::string& getStatus() const;
     const std::string& getPriority() const;
-
 
     void setTitle(const std::string& title);
     void setDescription(const std::string& description);
