@@ -17,7 +17,8 @@ public:
     void loadFromFile(const std::string& filename);
     Task createTask(const std::string& title,
         const std::string& description,
-        const std::string& status);
+        const std::string& status,
+        const std::string& priority);
     void searchTasksByTitle(const std::string& keyword) const;
 
 private:

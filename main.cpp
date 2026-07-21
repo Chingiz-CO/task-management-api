@@ -24,9 +24,18 @@ int main()
 
         if (choice == 1)
         {
+            std::string priority;
             std::string title;
             std::string description;
+            std::cout << "Enter priority (low/medium/high): ";
+            std::getline(std::cin, priority);
 
+            if (priority != "low" &&
+                priority != "medium" &&
+                priority != "high")
+            {
+                priority = "medium";
+            }
             std::cin.ignore();
 
             std::cout << "Enter task title: ";
@@ -35,7 +44,12 @@ int main()
             std::cout << "Enter task description: ";
             std::getline(std::cin, description);
 
-            taskManager.createTask(title, description, "pending");
+            taskManager.createTask(
+                title,
+                description,
+                "pending",
+                priority
+            );
 
             std::cout << "Task added successfully.\n";
         }

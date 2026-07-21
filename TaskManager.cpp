@@ -1,6 +1,5 @@
 #include "TaskManager.h"
 #include <iostream>
-#include <string>
 #include <fstream>
 #include <sstream>
 
@@ -27,18 +26,21 @@ void TaskManager::printTasks() const
 {
     if (tasks_.empty())
     {
-        std::cout << "No tasks available." << std::endl;
+        std::cout << "No tasks found.\n";
         return;
     }
 
     for (const Task& task : tasks_)
     {
-        std::cout << "Task #" << task.getId() << std::endl;
-        std::cout << "Title: " << task.getTitle() << std::endl;
-        std::cout << "Status: " << task.getStatus() << std::endl;
-        std::cout << std::endl;
+        std::cout << "ID: " << task.getId() << '\n';
+        std::cout << "Title: " << task.getTitle() << '\n';
+        std::cout << "Description: " << task.getDescription() << '\n';
+        std::cout << "Status: " << task.getStatus() << '\n';
+        std::cout << "Priority: " << task.getPriority() << '\n';
+        std::cout << "-------------------------\n";
     }
 }
+
     bool TaskManager::updateTaskStatus(int id, const std::string & newStatus)
     {
         Task* task = findTaskById(id);
@@ -79,46 +81,84 @@ void TaskManager::printTasks() const
             file << task.getId() << "|"
                 << task.getTitle() << "|"
                 << task.getDescription() << "|"
-                << task.getStatus() << "\n";
+                << task.getStatus() << "|"
+                << task.getPriority() << "\n";
         }
     }
 
     void TaskManager::loadFromFile(const std::string& filename)
     {
         std::ifstream file(filename);
+
+        if (!file.is_open())
+        {
+            return;
+        }
+
+        tasks_.clear();
+        nextId_ = 1;
+
         std::string line;
 
         while (std::getline(file, line))
         {
+            if (line.empty())
+            {
+                continue;
+            }
+
             std::stringstream ss(line);
-            std::string idText, title, description, status;
+
+            std::string idText;
+            std::string title;
+            std::string description;
+            std::string status;
+            std::string priority;
 
             std::getline(ss, idText, '|');
             std::getline(ss, title, '|');
             std::getline(ss, description, '|');
             std::getline(ss, status, '|');
+            std::getline(ss, priority, '|');
 
-            if (!idText.empty())
+            if (idText.empty())
             {
-                Task task(std::stoi(idText), title, description, status);
-                tasks_.push_back(task);
-                if (task.getId() >= nextId_)
-                {
-                    nextId_ = task.getId() + 1;
-                }
+                continue;
+            }
+
+            if (priority.empty())
+            {
+                priority = "medium";
+            }
+
+            Task task(
+                std::stoi(idText),
+                title,
+                description,
+                status,
+                priority
+            );
+
+            tasks_.push_back(task);
+
+            if (task.getId() >= nextId_)
+            {
+                nextId_ = task.getId() + 1;
             }
         }
+
+        file.close();
     }
 
     Task TaskManager::createTask(const std::string& title,
         const std::string& description,
-        const std::string& status)
+        const std::string& status,
+        const std::string& priority)
     {
-        Task task(nextId_, title, description, status);
-
-        nextId_++;
+        Task task(nextId_, title, description, status, priority);
 
         tasks_.push_back(task);
+        nextId_++;
 
         return task;
     }
