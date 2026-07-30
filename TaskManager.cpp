@@ -136,7 +136,8 @@ void TaskManager::printTasks() const
                 title,
                 description,
                 status,
-                priority
+                priority,
+                ""
             );
 
             tasks_.push_back(task);
@@ -155,7 +156,7 @@ void TaskManager::printTasks() const
         const std::string& status,
         const std::string& priority)
     {
-        Task task(nextId_, title, description, status, priority);
+        Task task(nextId_, title, description, status, priority, "");
 
         tasks_.push_back(task);
         nextId_++;

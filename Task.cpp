@@ -5,7 +5,8 @@ Task::Task()
     title_(""),
     description_(""),
     status_("pending"),
-    priority_("medium")
+    priority_("medium"),
+    dueDate_("")
 {
 }
 
@@ -13,12 +14,14 @@ Task::Task(int id,
     const std::string& title,
     const std::string& description,
     const std::string& status,
-    const std::string& priority)
+    const std::string& priority,
+    const std::string& dueDate)
     : id_(id),
     title_(title),
     description_(description),
     status_(status),
-    priority_(priority)
+    priority_(priority),
+    dueDate_(dueDate)
 {
 }
 
@@ -65,4 +68,14 @@ void Task::setStatus(const std::string& status)
 void Task::setPriority(const std::string& priority)
 {
     priority_ = priority;
+}
+
+std::string Task::getDueDate() const
+{
+    return dueDate_;
+}
+
+void Task::setDueDate(const std::string& dueDate)
+{
+    dueDate_ = dueDate;
 }
