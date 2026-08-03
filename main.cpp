@@ -21,12 +21,15 @@ int main()
         std::cout << "6. Exit\n";
         std::cout << "Choose option: ";
         std::cin >> choice;
-
+        std::cin.ignore()
+            ;
         if (choice == 1)
         {
             std::string priority;
             std::string title;
             std::string description;
+            std::string dueDate;
+            
             std::cout << "Enter priority (low/medium/high): ";
             std::getline(std::cin, priority);
 
@@ -43,12 +46,15 @@ int main()
 
             std::cout << "Enter task description: ";
             std::getline(std::cin, description);
+            std::cout << "Enter due date (YYYY-MM-DD): ";
+            std::getline(std::cin, dueDate);
 
             taskManager.createTask(
                 title,
                 description,
                 "pending",
-                priority
+                priority,
+                dueDate
             );
 
             std::cout << "Task added successfully.\n";

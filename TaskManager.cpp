@@ -37,6 +37,8 @@ void TaskManager::printTasks() const
         std::cout << "Description: " << task.getDescription() << '\n';
         std::cout << "Status: " << task.getStatus() << '\n';
         std::cout << "Priority: " << task.getPriority() << '\n';
+        std::cout << "Status: " << task.getStatus() << '\n';
+        std::cout << "Due Date: " << task.getDueDate() << '\n';
         std::cout << "-------------------------\n";
     }
 }
@@ -82,7 +84,8 @@ void TaskManager::printTasks() const
                 << task.getTitle() << "|"
                 << task.getDescription() << "|"
                 << task.getStatus() << "|"
-                << task.getPriority() << "\n";
+                << task.getPriority() << "|"
+                << task.getDueDate() << '\n';
         }
     }
 
@@ -114,12 +117,14 @@ void TaskManager::printTasks() const
             std::string description;
             std::string status;
             std::string priority;
+            std::string dueDate;
 
             std::getline(ss, idText, '|');
             std::getline(ss, title, '|');
             std::getline(ss, description, '|');
             std::getline(ss, status, '|');
             std::getline(ss, priority, '|');
+            std::getline(ss, dueDate, '|');
 
             if (idText.empty())
             {
@@ -137,7 +142,7 @@ void TaskManager::printTasks() const
                 description,
                 status,
                 priority,
-                ""
+                dueDate
             );
 
             tasks_.push_back(task);
@@ -154,9 +159,17 @@ void TaskManager::printTasks() const
     Task TaskManager::createTask(const std::string& title,
         const std::string& description,
         const std::string& status,
-        const std::string& priority)
+        const std::string& priority,
+        const std::string& dueDate)
     {
-        Task task(nextId_, title, description, status, priority, "");
+        Task task(
+            nextId_,
+            title,
+            description,
+            status,
+            priority,
+            dueDate
+        );
 
         tasks_.push_back(task);
         nextId_++;
