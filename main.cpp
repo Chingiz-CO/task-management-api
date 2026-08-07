@@ -10,7 +10,7 @@ int main()
     int nextId = 1;
     int choice = 0;
 
-    while (choice != 7)
+    while (choice != 8)
     {
         std::cout << "\n===== Task Management API =====\n";
         std::cout << "1. Add task\n";
@@ -19,11 +19,12 @@ int main()
         std::cout << "4. Update task status\n";
         std::cout << "5. Search task by title\n";
         std::cout << "6. Sort tasks by priority\n";
-        std::cout << "7. Exit\n";
+        std::cout << "7. Filter tasks by status\n";
+        std::cout << "8. Exit\n";
         std::cout << "Choose option: ";
         std::cin >> choice;
-        std::cin.ignore()
-            ;
+        std::cin.ignore();
+            
         if (choice == 1)
         {
             std::string priority;
@@ -113,8 +114,20 @@ int main()
 
         else if (choice == 7)
         {
+            std::string status;
+
+            std::cin.ignore();
+
+            std::cout << "Enter status (pending/in progress/completed): ";
+            std::getline(std::cin, status);
+
+            taskManager.filterByStatus(status);
+        }
+        else if (choice == 8)
+        {
             std::cout << "Exiting application.\n";
         }
+
         else
         {
             std::cout << "Invalid option.\n";

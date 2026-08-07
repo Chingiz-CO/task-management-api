@@ -219,3 +219,29 @@ void TaskManager::printTasks() const
                     priorityValue(b.getPriority());
             });
     }
+
+    void TaskManager::filterByStatus(const std::string& status) const
+    {
+        bool found = false;
+
+        for (const Task& task : tasks_)
+        {
+            if (task.getStatus() == status)
+            {
+                std::cout << "ID: " << task.getId() << '\n';
+                std::cout << "Title: " << task.getTitle() << '\n';
+                std::cout << "Description: " << task.getDescription() << '\n';
+                std::cout << "Status: " << task.getStatus() << '\n';
+                std::cout << "Priority: " << task.getPriority() << '\n';
+                std::cout << "Due Date: " << task.getDueDate() << '\n';
+                std::cout << "-------------------------\n";
+
+                found = true;
+            }
+        }
+
+        if (!found)
+        {
+            std::cout << "No tasks found with status: " << status << '\n';
+        }
+    }

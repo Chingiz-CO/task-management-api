@@ -20,10 +20,11 @@ public:
         const std::string& description,
         const std::string& status,
         const std::string& priority,
-        
         const std::string& dueDate);
+
     void searchTasksByTitle(const std::string& keyword) const;
     void sortByPriority();
+    void filterByStatus(const std::string& status) const;
 
 private:
     std::vector<Task> tasks_;
