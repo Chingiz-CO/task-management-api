@@ -26,6 +26,7 @@ public:
     void setDescription(const std::string& description);
     void setStatus(const std::string& status);
     void setPriority(const std::string& priority);
+    void sortByPriority();
 
 private:
     int id_;

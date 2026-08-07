@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 void TaskManager::addTask(const Task& task)
 {
@@ -199,4 +200,22 @@ void TaskManager::printTasks() const
         {
             std::cout << "No tasks found." << std::endl;
         }
+
+    }
+
+    void TaskManager::sortByPriority()
+    {
+        std::sort(tasks_.begin(), tasks_.end(),
+            [](const Task& a, const Task& b)
+            {
+                auto priorityValue = [](const std::string& priority)
+                    {
+                        if (priority == "high") return 3;
+                        if (priority == "medium") return 2;
+                        return 1;
+                    };
+
+                return priorityValue(a.getPriority()) >
+                    priorityValue(b.getPriority());
+            });
     }

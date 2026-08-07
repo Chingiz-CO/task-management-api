@@ -10,7 +10,7 @@ int main()
     int nextId = 1;
     int choice = 0;
 
-    while (choice != 6)
+    while (choice != 7)
     {
         std::cout << "\n===== Task Management API =====\n";
         std::cout << "1. Add task\n";
@@ -18,7 +18,8 @@ int main()
         std::cout << "3. Remove task\n";
         std::cout << "4. Update task status\n";
         std::cout << "5. Search task by title\n";
-        std::cout << "6. Exit\n";
+        std::cout << "6. Sort tasks by priority\n";
+        std::cout << "7. Exit\n";
         std::cout << "Choose option: ";
         std::cin >> choice;
         std::cin.ignore()
@@ -103,7 +104,14 @@ int main()
 
             taskManager.searchTasksByTitle(keyword);
         }
+
         else if (choice == 6)
+        {
+            taskManager.sortByPriority();
+            std::cout << "Tasks sorted by priority.\n";
+        }
+
+        else if (choice == 7)
         {
             std::cout << "Exiting application.\n";
         }
