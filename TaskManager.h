@@ -15,7 +15,8 @@ public:
     void printTasks() const;
     void saveToFile(const std::string& filename) const;
     void loadFromFile(const std::string& filename);
-    
+    void printStatistics() const;
+
     Task createTask(const std::string& title,
         const std::string& description,
         const std::string& status,

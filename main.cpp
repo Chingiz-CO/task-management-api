@@ -10,7 +10,7 @@ int main()
     int nextId = 1;
     int choice = 0;
 
-    while (choice != 8)
+    while (choice != 9)
     {
         std::cout << "\n===== Task Management API =====\n";
         std::cout << "1. Add task\n";
@@ -20,7 +20,8 @@ int main()
         std::cout << "5. Search task by title\n";
         std::cout << "6. Sort tasks by priority\n";
         std::cout << "7. Filter tasks by status\n";
-        std::cout << "8. Exit\n";
+        std::cout << "8. Show statistics\n";
+        std::cout << "9. Exit\n";
         std::cout << "Choose option: ";
         std::cin >> choice;
         std::cin.ignore();
@@ -61,10 +62,12 @@ int main()
 
             std::cout << "Task added successfully.\n";
         }
+
         else if (choice == 2)
         {
             taskManager.printTasks();
         }
+
         else if (choice == 3)
         {
             int id;
@@ -76,6 +79,7 @@ int main()
             else
                 std::cout << "Task not found.\n";
         }
+
         else if (choice == 4)
         {
             int id;
@@ -94,6 +98,7 @@ int main()
             else
                 std::cout << "Task not found.\n";
         }
+
         else if (choice == 5)
         {
             std::string keyword;
@@ -123,7 +128,13 @@ int main()
 
             taskManager.filterByStatus(status);
         }
+
         else if (choice == 8)
+        {
+            taskManager.printStatistics();
+        }
+
+        else if (choice == 9)
         {
             std::cout << "Exiting application.\n";
         }

@@ -245,3 +245,32 @@ void TaskManager::printTasks() const
             std::cout << "No tasks found with status: " << status << '\n';
         }
     }
+
+    void TaskManager::printStatistics() const
+    {
+        int pending = 0;
+        int inProgress = 0;
+        int completed = 0;
+
+        for (const Task& task : tasks_)
+        {
+            if (task.getStatus() == "pending")
+            {
+                pending++;
+            }
+            else if (task.getStatus() == "in progress")
+            {
+                inProgress++;
+            }
+            else if (task.getStatus() == "completed")
+            {
+                completed++;
+            }
+        }
+
+        std::cout << "\n===== Task Statistics =====\n";
+        std::cout << "Total tasks: " << tasks_.size() << '\n';
+        std::cout << "Pending: " << pending << '\n';
+        std::cout << "In Progress: " << inProgress << '\n';
+        std::cout << "Completed: " << completed << '\n';
+    }
